@@ -5,8 +5,29 @@ The goal of this lab is to practice and strengthen system administration skills,
 
 
 
-Error Explanation:
+Error1 Explanation:
 The PowerShell error occurred because the ADDSDeployment module and its cmdlets (such as Install-ADDSForest) were not available on the system. These commands are part of the Active Directory Domain Services (AD DS) feature in Windows Server, not a downloadable PowerShell module. Installing the AD DS role with management tools (Install-WindowsFeature AD-Domain-Services -IncludeManagementTools) resolves the issue by adding the required module and cmdlets.
+
+Error 2 after running                                                                                                    PS C:\Users\lawrence_admin> #Powershell script for installing ADDS and promoting to DC             >>
+>> #
+>> Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
+>>
+>> Install-Module ADDSDeployment
+>> Install-ADDSForest `
+>> -CreateDnsDelegation :$false `
+>> -DatabasePath “c:\Windows\NDTS” `
+>> -DomainMode “WinThreshold” `
+>> -DomainName “Pawplicity.local” `
+>> -DomainNetbiosName “Pawplicity” `
+>> -ForestMode “WinThreshold” `
+>> -InstallDns :$true `
+>> -LogPath “c:\Windows\SYSVOL” `
+>> -force
+The command failed because there was one extra colon (:) in your parameters, and because you tried to install a module that already exists in Windows.
+
+Once you remove that colon and skip Install-Module ADDSDeployment, it should work perfectly.
+
+Next thing was it because parameter issue.
 ---
 
 ## ⚙️ Lab Overview
