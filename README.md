@@ -67,12 +67,19 @@ touch scripts/.gitkeep
 .<img width="3150" height="1758" alt="Ready to Install Roles and features" src="https://github.com/user-attachments/assets/a49dc094-d992-4a19-af78-62d4e18b9653" />
 
 
+
+---<img width="3072" height="1740" alt="Promote Server to DC" src="https://github.com/user-attachments/assets/6ce765c8-c84c-4fc7-b464-46171e09ac76" />
+
+
 ### 
 Promote to Domain Controller:
 Select "Add New Forest and give a name including domain extension eg. ".com" or ".local"
 
+<img width="2871" height="1731" alt="Naming my Domain" src="https://github.com/user-attachments/assets/462adc4e-2cd1-4da6-9ea7-38c14123bd11" />
 
----<img width="3072" height="1740" alt="Promote Server to DC" src="https://github.com/user-attachments/assets/6ce765c8-c84c-4fc7-b464-46171e09ac76" />
+
+
+
 
 
 ### 
