@@ -1,34 +1,7 @@
 # 🧠 Active Directory Lab in VMware
 
 ## 📘 Purpose
-The goal of this lab is to practice and strengthen system administration skills, focusing on **Active Directory Domain Services (AD DS)** setup, domain joining, and user management — all within a virtualized environment.
 
-
-
-Error1 Explanation:
-The PowerShell error occurred because the ADDSDeployment module and its cmdlets (such as Install-ADDSForest) were not available on the system. These commands are part of the Active Directory Domain Services (AD DS) feature in Windows Server, not a downloadable PowerShell module. Installing the AD DS role with management tools (Install-WindowsFeature AD-Domain-Services -IncludeManagementTools) resolves the issue by adding the required module and cmdlets.
-
-Error 2 after running                                                                                                    PS C:\Users\lawrence_admin> #Powershell script for installing ADDS and promoting to DC             >>
->> #
->> Install-WindowsFeature AD-Domain-Services -IncludeManagementTools
->>
->> Install-Module ADDSDeployment
->> Install-ADDSForest `
->> -CreateDnsDelegation :$false `
->> -DatabasePath “c:\Windows\NDTS” `
->> -DomainMode “WinThreshold” `
->> -DomainName “Pawplicity.local” `
->> -DomainNetbiosName “Pawplicity” `
->> -ForestMode “WinThreshold” `
->> -InstallDns :$true `
->> -LogPath “c:\Windows\SYSVOL” `
->> -force
-The command failed because there was one extra colon (:) in your parameters, and because you tried to install a module that already exists in Windows.
-
-Once you remove that colon and skip Install-Module ADDSDeployment, it should work perfectly.
-
-Next thing was it because parameter issue.
----
 
 ## ⚙️ Lab Overview
 
@@ -37,19 +10,18 @@ Next thing was it because parameter issue.
 | **Hypervisor** | VMware Workstation / VMware Fusion |
 | **Operating Systems** | Windows Server 2022, Windows 11 |
 | **Virtual Machines** | 2 (Domain Controller & Client) |
-| **VM Resources** | 2 CPUs, 2 GB RAM, 30 GB HDD each |
+| **VM Resources** | 2 CPUs, 4 GB RAM, 30 GB HDD each |
 
 ---
 
 ## 🌐 Network Configuration
 
-| VM | Adapter 1 | Adapter 2 | Purpose |
+| VM | Adapter 1 | Adapter 2 | Configuration|
 |----|------------|-----------|----------|
-| **Domain Controller (DC)** | NAT | Host-Only | Internet access + internal LAN |
-| **Windows 11 Client** | Host-Only | — | Internal domain connectivity |
+| **Domain Controller (DC)** | NAT(Routing) |Static IP|
+| **Windows 11 Client** | LAN Segment |InternetAccess & DHCP via DC |
 
-> **Why NAT + Host-Only?**  
-> The **NAT** adapter lets the DC reach the internet through the host machine’s IP, while **Host-Only** creates a private network where the DC and client can communicate securely.
+
 
 ---
 CREATE FOLDERS STRUCTURE.
