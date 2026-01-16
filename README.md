@@ -92,7 +92,46 @@ touch scripts/.gitkeep
 
 
 
-#### DHCP SERVER AND SCOPE CONFIGURATION:
+#### DHCP SERVER AND SCOPE CONFIGURATION:Setting Instructions for how my DHCP will function.
+
+Select Tools in top right of the Server Manager. Open DHCP in drop down menu. Right Click on IPV4 and select New Scope to open wizard. Click and Name the scope and give a description of its purpose.Click Next and set the range, CIDR and Subnet mask click Next and Skip "Add exclusions and delay". Leave lease duration(How long it takes for assigned IP to expire) at the default 8. Click Next and next again on "Yes I want to configure these settings now". Now Enter default gateway which will be my Dc's IP Address because I have NAT Routing configured.Next up is DNS Server, which will also be my DC. I will enter my DC's IP address otherwise I will not be able to join clients to my domain.Click Next and skip WINS Server. Say yes to "Do you want to activate this scope now" and click next, then finish.
+### Configuring NAT Gateway 
+Back in the Server Manager dashboard, Go to tools again and select "Routing and Remote Access". Right click on server and select Configure routing as shown in screenshot.
+Click Next and Select "NAT".Click next then select your External/Public server(The NAT NIC) where we will get the internet from.Click Next and finish
+
+ #### EQUALS 
+ 
+
+### Configuring a DHCP Scope
+The DHCP service automates the assignment of IP addresses, subnet masks, and other network parameters to client machines. To initialize this service, an administrator must define a Scope—a consecutive range of possible IP addresses for a network.
+
+Initialization: Within the Server Manager, navigate to Tools > DHCP. In the management console, right-click IPv4 and initiate the New Scope Wizard.
+
+Identification: Assign a logical Name and Description to the scope to ensure administrative clarity within the directory.
+
+Address Range and Subnetting: Define the pool of available IP addresses by entering the Start and End IP addresses. The CIDR (Classless Inter-Domain Routing) notation and Subnet Mask must be configured here to define the boundaries of the local broadcast domain.
+
+Lease Duration: By default, the system sets a Lease Duration (the lifespan of an assigned IP address before it must be renewed) of 8 days.
+
+Scope Options (Gateway and DNS): * Default Gateway: Enter the IP address of the Domain Controller (DC). In this specific architecture, the DC serves as the gateway due to its NAT routing configuration.
+
+DNS Server: Specify the DC’s IP address. This is a critical step; without pointing to the local DNS, client machines will fail to authenticate or resolve the domain name.
+
+Activation: Skip the WINS Server configuration, confirm the activation of the scope, and finalize the wizard.
+
+### Establishing a NAT Gateway
+Network Address Translation (NAT) allows multiple devices on a private local network to access the internet using a single public IP address. This is managed through the Routing and Remote Access (RRAS) role.
+
+Accessing RRAS: From the Server Manager, select Tools > Routing and Remote Access.
+
+Server Configuration: Right-click the server node and select Configure and Enable Routing and Remote Access.
+
+Role Selection: Choose Network Address Translation (NAT) from the list of deployment options.
+
+Interface Mapping: Select the External/Public Network Interface Card (NIC). This is the interface that connects to the internet service provider or the external network.
+
+Completion: Finalize the setup to enable the routing of traffic from the internal private network to the external public network.                                            
+
 
 
 
