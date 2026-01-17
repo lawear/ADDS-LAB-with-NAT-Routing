@@ -92,15 +92,7 @@ touch scripts/.gitkeep
 
 
 
-#### DHCP SERVER AND SCOPE CONFIGURATION:Setting Instructions for how my DHCP will function.
 
-Select Tools in top right of the Server Manager. Open DHCP in drop down menu. Right Click on IPV4 and select New Scope to open wizard. Click and Name the scope and give a description of its purpose.Click Next and set the range, CIDR and Subnet mask click Next and Skip "Add exclusions and delay". Leave lease duration(How long it takes for assigned IP to expire) at the default 8. Click Next and next again on "Yes I want to configure these settings now". Now Enter default gateway which will be my Dc's IP Address because I have NAT Routing configured.Next up is DNS Server, which will also be my DC. I will enter my DC's IP address otherwise I will not be able to join clients to my domain.Click Next and skip WINS Server. Say yes to "Do you want to activate this scope now" and click next, then finish.
-### Configuring NAT Gateway 
-Back in the Server Manager dashboard, Go to tools again and select "Routing and Remote Access". Right click on server and select Configure routing as shown in screenshot.
-Click Next and Select "NAT".Click next then select your External/Public server(The NAT NIC) where we will get the internet from.Click Next and finish
-
- #### EQUALS 
- 
 
 ### Configuring a DHCP Scope
 The DHCP service automates the assignment of IP addresses, subnet masks, and other network parameters to client machines. To initialize this service, an administrator must define a Scope—a consecutive range of possible IP addresses for a network.
