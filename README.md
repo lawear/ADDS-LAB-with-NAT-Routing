@@ -65,18 +65,16 @@ Utilized the Routing and Remote Access (RRAS) console to transform the server in
 
 **Phase 4: Verification & Integration**
 The final phase validates the network flow and ensures domain connectivity.
-**4.1 Client Network Verification**
 
+**4.1 Client Network Verification**
 The Windows 11 client successfully leased an IP (10.5.10.22) from the DHCP server and confirmed internet connectivity via the NAT gateway.
 <img width="700" height="1000" alt="ClientPCs have internet Access" src="https://github.com/user-attachments/a ssets/8de8b5a5-8fcb-48d0-9adb-910adb2d6ef0" />
 
 **4.2 Active Directory Validation**
 Verified successful domain joins by confirming the client machine is correctly indexed within the Active Directory Users and Computers (ADUC) container.
 
-**Lessons Learned** 
-I learned that DNS is king—if it’s not right, nothing works. I also made sure the private NIC had a static IP, otherwise, the whole routing setup would break. Lastly, I had to get the DHCP scope fully configured before the server could actually start handing out IPs to the clients
-
-
+## Lessons Learned
+I learned that DNS is the backbone of AD—if it isn't perfect, everything from domain joins to services will fail. I kept the private NIC on a static IP to keep the routing and DHCP stable, and I made sure the DHCP options (003 and 006) were spot on so the isolated clients could actually find the domain and the internet.
 
 
 
