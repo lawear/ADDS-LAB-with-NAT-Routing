@@ -3,6 +3,46 @@
 **Summary:**
 In this project I built a secure AD lab using my DC as a gateway. I used RRAS to set up NAT routing, meaning my domain-joined clients can get online through the server without being directly exposed to the internet. It keeps the private network isolated while still allowing for updates and browsing.
 
+What is in it?
+Windows Server Machine with DHCP Scope,DNS and RRAS
+Active Directory OUs/GPO
+Account Creation and Management.
+Windows Client Machine
+
+## Project: Secure AD DS Lab with NAT Routing
+**The Goal**
+I built this lab to simulate a real-world enterprise network.My main focus was providing internet access to my virtual machines without exposing them directly to the outside world for security. By configuring the Windows Server as a NAT Gateway, I created a "middleman" that keeps the lab isolated while still allowing for updates and web traffic.
+
+**Core Components**
+Windows Server (DC & Gateway): * RRAS & NAT: Acts as the router. It bridges the private lab network to my physical internet connection.
+
+**DHCP & DNS:** Handles all the internal networking logic so clients can find the domain and get online automatically.
+
+**Active Directory Management:**
+
+**Designed a custom OU structure to organize users and service accounts.**
+
+**Account Management:** Set up users and groups to test permissions and access control.
+
+**Windows Client:** A domain-joined workstation used to verify that the networking and policies actually work in practice.
+
+**Custom Policies (GPOs)**
+To make the lab behave like a production environment, I pushed out several Group Policy Objects:
+
+-Drive Mapping: Automatically maps a network share (like a "Public" or "Home" drive) when a user logs in. This is way more efficient than doing it manually on every machine.
+
+-Screensaver Lock: Enforced a mandatory screensaver and timeout lock. This is a standard security move to ensure workstations aren't left wide open when someone walks away.
+
+-Security Baselines: Applied general hardening to ensure the client machine follows domain standards.
+
+**How it Works**
+Isolation: The client machine sits on a private virtual switch. It can't "see" my home router at all.
+
+In practice: The client asks the Server for an IP (DHCP) and the Server tells it, "I'm your gateway."
+
+The Routing: When the client goes to a website, the Server uses NAT to mask the client's internal IP. The server fetches the data and hands it back, keeping the client's identity hidden from the internet.
+
+Policy Enforcement: As soon as a user logs in, the DC pushes the drive mappings and screensaver settings, ensuring the workstation is instantly configured.
 
 **Infrastructure Pre-requisite:**
 | Component | Description |
