@@ -1,15 +1,5 @@
 
 ## Project: Secure AD DS Lab with NAT Routing
-**Summary:**
-In this project I built a secure AD lab using my DC as a gateway. I used RRAS to set up NAT routing, meaning my domain-joined clients can get online through the server without being directly exposed to the internet. It keeps the private network isolated while still allowing for updates and browsing.
-
-What is in it?
-Windows Server Machine with DHCP Scope,DNS and RRAS
-Active Directory OUs/GPO
-Account Creation and Management.
-Windows Client Machine
-
-## Project: Secure AD DS Lab with NAT Routing
 **The Goal**
 I built this lab to simulate a real-world enterprise network.My main focus was providing internet access to my virtual machines without exposing them directly to the outside world for security. By configuring the Windows Server as a NAT Gateway, I created a "middleman" that keeps the lab isolated while still allowing for updates and web traffic.
 
