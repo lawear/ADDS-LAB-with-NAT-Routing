@@ -17,9 +17,9 @@ Designed a custom OU structure to organize users and service accounts and  Set u
 **Custom Policies (GPOs):**
 To make the lab behave like a production environment, I pushed out a couple Group Policy Objects:
 
--Drive Mapping: Automatically maps a network share (like a "Public" or "Home" drive) when a user logs in. This is way more efficient than doing it manually on every machine.
+*Drive Mapping: Automatically maps a network share (like a "Public" or "Home" drive) when a user logs in. This is way more efficient than doing it manually on every machine.
 
--Screensaver Lock: Enforced a mandatory screensaver and timeout lock. This is a standard security move to ensure workstations aren't left wide open when someone walks away.
+*Screensaver Lock: Enforced a mandatory screensaver and timeout lock. This is a standard security move to ensure workstations aren't left wide open when someone walks away.
 
 <p align="Left">
   <img src="screenshots/larry.png" alt="Network Topology Diagram" width="450">
@@ -48,17 +48,19 @@ Policy Enforcement: As soon as a user logs in, the DC pushes the drive mappings 
 
 
 
+***Phase 1***
 
-
-**Phase 1:Active Directory Provisioning(IAM):**
+**Active Directory Provisioning(IAM):**
 Started by spinning up the core server roles and building a fresh Active Directory forest from scratch on my win 22 server vm.
 
 **1.1 Role Installation**
+
 Hit 'Add Roles and Features' in Server Manager and checked off the boxes for AD DS, DHCP,DNS and RRAS. This got my identity management and core network services up and running for the lab.
 
 <img width="700" height="1000" alt="Ready to Install Roles and features" src="https://github.com/user-attachments/assets/25106061-fa42-49f5-a821-bea24fbec25d" />
 
 **1.2 Forest Creation & AD DS Promotion**:
+
 Setup a new forest with pawplicity.com as the root domain. This created the main security and identity boundary for everything in the lab.
 
 <img width="700" height="1000" alt="Naming my Domain" src="https://github.com/user-attachments/assets/cf12dbbf-0bbe-4fd8-8007-adc48cae31ac" />
