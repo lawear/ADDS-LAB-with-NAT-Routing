@@ -1,24 +1,30 @@
-﻿# ----- Edit these Variables for your own Use Case ----- #
-$PASSWORD_FOR_USERS   = "Password1"
-$USER_FIRST_LAST_LIST = Get-Content .\names.txt
-# ------------------------------------------------------ #
+# Path to text file and target OU
+$TXTPath = ""
+$OU = "OU=Users,OU=Westchester,OU=New York,OU=Pawplicity,DC=pawplicity,DC=com"
 
-$password = ConvertTo-SecureString $PASSWORD_FOR_USERS -AsPlainText -Force
-New-ADOrganizationalUnit -Name _USERS -ProtectedFromAccidentalDeletion $false
+# Import the data
+$UserData = Import-Csv -Path $TXTPath
 
-foreach ($n in $USER_FIRST_LAST_LIST) {
-    $first = $n.Split(" ")[0].ToLower()
-    $last = $n.Split(" ")[1].ToLower()
-    $username = "$($first.Substring(0,1))$($last)".ToLower()
-    Write-Host "Creating user: $($username)" -BackgroundColor Black -ForegroundColor Cyan
+foreach ($User in $UserData) {
+    # .Trim() removes accidental spaces from your text file
+    $First = $User.FirstName.Trim()
+    $Last = $User.LastName.Trim()
+    $SAM = $User.UserName.Trim()
     
-    New-AdUser -AccountPassword $password `
-               -GivenName $first `
-               -Surname $last `
-               -DisplayName $username `
-               -Name $username `
-               -EmployeeID $username `
-               -PasswordNeverExpires $true `
-               -Path "ou=_USERS,$(([ADSI]`"").distinguishedName)" `
-               -Enabled $true
+    $FullName = "$First $Last"
+    $UPN = "$SAM@pawplicity.com"
+
+    # Create the user
+    New-ADUser -Name $FullName `
+               -GivenName $First `
+               -Surname $Last `
+               -SamAccountName $SAM `
+               -UserPrincipalName $UPN `
+               -Path $OU `
+               -AccountPassword (ConvertTo-SecureString "Password123!" -AsPlainText -Force) `
+               -ChangePasswordAtLogon $true `
+               -Enabled $true `
+               -ProtectedFromAccidentalDeletion $false  # Set to $true later for production
+
+    Write-Host "Success: Created $FullName (Delete Protection: OFF)" -ForegroundColor Cyan
 }
